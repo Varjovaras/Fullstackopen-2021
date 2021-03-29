@@ -8,11 +8,9 @@ const Header = (props) => {
 const Part = (props) => {
   console.log(props);
   return (
-    <>
-      <p>
-        {props.part} {props.exercises}
-      </p>
-    </>
+    <p>
+      {props.part} {props.exercises}
+    </p>
   );
 };
 const Content = (props) => {
@@ -29,12 +27,10 @@ const Content = (props) => {
 const Total = (props) => {
   return (
     <>
-      <>
-        Number of exercises{" "}
-        {props.parts[0].exercises +
-          props.parts[1].exercises +
-          props.parts[2].exercises}
-      </>
+      Number of exercises{" "}
+      {props.parts[0].exercises +
+        props.parts[1].exercises +
+        props.parts[2].exercises}
     </>
   );
 };
