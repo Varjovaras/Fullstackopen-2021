@@ -1,7 +1,6 @@
 import React from "react";
 
 const Header = (props) => {
-  console.log(props);
   return <h1>{props.course}</h1>;
 };
 
@@ -14,7 +13,6 @@ const Part = (props) => {
   );
 };
 const Content = (props) => {
-  console.log(props);
   return (
     <>
       <Part part={props.parts[0].name} exercises={props.parts[0].exercises} />
@@ -36,7 +34,6 @@ const Total = (props) => {
 };
 
 const App = () => {
-
   const course = {
     name: "Half Stack application development",
     parts: [
