@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 
-const App = (props) => {
-  const { notes } = props;
-  const result = notes.map((note) => note.id);
-  console.log(result);
+const App = () => {
+  const [{ count, count2 }, setCount] = useState({ count: 10, count2: 20 });
+
   return (
     <div>
-      <h1>Notes</h1>
-      <ul>
-        <ul>
-          {notes.map((note) => (
-            <li key={note.id}>{note.content}</li>
-          ))}
-        </ul>
-      </ul>
+      <button
+        onClick={() =>
+          setCount((currentState) => ({
+            count: currentState.count + 1,
+            count2: currentState.count2,
+          }))
+        }
+      >
+        +
+      </button>
+      <div>count 1: {count}</div>
+      <div>count 2: {count2}</div>
     </div>
   );
 };
