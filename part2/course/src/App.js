@@ -41,6 +41,7 @@ const Header = ({ header }) => {
   return <h1>{header}</h1>;
 };
 
+//KKontent
 const Content = ({ parts }) => {
   return (
     <>
