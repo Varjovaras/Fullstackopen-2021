@@ -1,18 +1,37 @@
 import React, { useState } from "react";
 
 const PersonList = ({ person }) => {
-  return <li>{person.name + " " + person.number}</li>;
+  return <li>{person.name + " " + person.number} </li>;
+};
+
+const Filter = ({ filter, setFilter, persons, setShowPersons }) => {
+  const handleFilterChange = (event) => {
+    // console.log(event.target.value);
+    setFilter(event.target.value);
+
+    if (filter.length !== 0) {
+      const filtered = persons.filter((person) =>
+        person.name.toLowerCase().includes(event.target.value.toLowerCase())
+      );
+      setShowPersons(filtered);
+    } else setShowPersons(persons);
+  };
+
+  return (
+    <form>
+      <div>
+        filter shown with <input value={filter} onChange={handleFilterChange} />{" "}
+      </div>
+    </form>
+  );
 };
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", id: 1, number: 420420420 },
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
-  const [filteredPersons, setFilteredPersons] = useState([persons]);
-  console.log(filteredPersons);
+  const [showPersons, setShowPersons] = useState(persons);
 
   const addName = (event) => {
     event.preventDefault();
@@ -27,47 +46,41 @@ const App = () => {
     };
 
     setPersons(persons.concat(nameObject));
+    setShowPersons(persons.concat(nameObject));
     setNewName("");
     setNewNumber("");
   };
 
   const handleNameChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setNewName(event.target.value);
   };
 
   const handleNumberChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setNewNumber(event.target.value);
-  };
-
-  const handleFilterChange = (event) => {
-    setFilter(event.target.value);
-    if (filter.length !== 0) {
-      const filtered = persons.filter((person) =>
-        // Check if the search term is included in the names in the phonebook
-        person.name.toLowerCase().includes(event.target.value.toLowerCase())
-      );
-
-      setFilteredPersons(filtered);
-      console.log(filteredPersons);
-    } else setFilteredPersons(persons);
-    console.log(filteredPersons);
   };
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <form>
-        <div>
-          filter shown with{" "}
-          <input value={filter} onChange={handleFilterChange} />{" "}
-        </div>
-      </form>
+
+      <Filter
+        filter={filter}
+        setFilter={setFilter}
+        persons={persons}
+        setPersons={setPersons}
+        setShowPersons={setShowPersons}
+      />
       <h2>add a new</h2>
       <form onSubmit={addName}>
         <div>
-          name: <input value={newName} onChange={handleNameChange} />
+          name:{" "}
+          <input
+            value={newName}
+            onChange={handleNameChange}
+            persons={persons}
+          />
         </div>
         <div>
           number: <input value={newNumber} onChange={handleNumberChange} />
@@ -79,8 +92,8 @@ const App = () => {
       <h2>Numbers</h2>
 
       <ul>
-        {filteredPersons.map((person) => (
-          <PersonList key={person.id} person={person} />
+        {showPersons.map((person) => (
+          <PersonList key={person.id + 1} person={person} />
         ))}
       </ul>
     </div>
