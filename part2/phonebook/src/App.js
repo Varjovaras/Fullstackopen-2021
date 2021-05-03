@@ -4,7 +4,7 @@ const Person = ({ person }) => {
   return <li>{person.name + " " + person.number} </li>;
 };
 
-const Persons = ({ showPersons }) => {
+const PersonList = ({ showPersons }) => {
   return (
     <ul>
       {showPersons.map((person) => (
@@ -37,6 +37,7 @@ const AddName = ({
 }) => {
   const addName = (event) => {
     event.preventDefault();
+
     const duplicateChecker = persons.find((p) => newName === p.name);
     if (duplicateChecker)
       return alert(`${newName} is already added to phonebook`);
@@ -80,7 +81,7 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
-  const [showPersons, setShowPersons] = useState(persons);
+  const [personList, setPersonList] = useState([persons]);
 
   const handleNameChange = (event) => {
     setNewName(event.target.value);
@@ -96,7 +97,7 @@ const App = () => {
     const filtered = persons.filter((person) =>
       person.name.toLowerCase().includes(event.target.value.toLowerCase())
     );
-    setShowPersons(filtered);
+    setPersonList(filtered);
   };
 
   return (
@@ -108,7 +109,7 @@ const App = () => {
         setFilter={setFilter}
         persons={persons}
         setPersons={setPersons}
-        setShowPersons={setShowPersons}
+        setShowPersons={setPersonList}
         handleFilterChange={handleFilterChange}
       />
       <h2>add a new</h2>
@@ -120,14 +121,14 @@ const App = () => {
         setPersons={setPersons}
         handleNameChange={handleNameChange}
         handleNumberChange={handleNumberChange}
-        setShowPersons={setShowPersons}
+        setShowPersons={setPersonList}
         setNewName={setNewName}
         setNewNumber={setNewNumber}
       />
 
       <h2>Numbers</h2>
 
-      <Persons person={Person} showPersons={showPersons} />
+      <PersonList person={Person} showPersons={personList} />
     </div>
   );
 };
