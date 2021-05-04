@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Filter = ({ filter, handleSearchChange }) => {
+const SearchBar = ({ filter, handleSearchChange }) => {
   return (
     <form>
       <div>
-        filter shown with <input value={filter} onChange={handleSearchChange} />{" "}
+        search for country:{" "}
+        <input value={filter} onChange={handleSearchChange} />{" "}
       </div>
     </form>
   );
@@ -13,10 +14,10 @@ const Filter = ({ filter, handleSearchChange }) => {
 
 const Country = ({ country, handleClick }) => {
   return (
-    <>
+    <li>
       {country.name}{" "}
       <button onClick={() => handleClick(country.name)}>show</button>
-    </>
+    </li>
   );
 };
 
@@ -36,26 +37,39 @@ const CountryDetails = ({ country, weatherData }) => {
         width="150px"
         height="100px"
       />
-      <WeatherData weatherData={WeatherData} />
     </>
   );
 };
 
 const WeatherData = ({ weatherData }) => {
+  console.log(weatherData);
   return (
-    <>
-      <h2>weather in {weatherData?.location.name}</h2>
-      <div>{weatherData?.current.temperature} celsius</div>
-    </>
+    <div>
+      <h2>{weatherData?.location.name}</h2>
+
+      <div>temperature: {weatherData?.current.temperature} degrees celcius</div>
+      <div>
+        <img src={weatherData?.current.weather_icons} alt=""></img>
+      </div>
+      <div>
+        wind: {weatherData?.current.wind_speed} km/h direction{" "}
+        {weatherData?.current.wind_dir}{" "}
+      </div>
+    </div>
   );
 };
 
-const CountryList = ({ countries, handleClick, weatherData }) => {
+const ListCountries = ({
+  countries,
+  handleClick,
+  weatherData,
+  setWeatherData,
+}) => {
   if (countries.length > 10) {
     return <div>Too many matches, specify another filter</div>;
   } else if (countries.length > 1 && countries.length <= 10) {
     return (
-      <>
+      <ul>
         {countries.map((country) => (
           <Country
             key={country.name}
@@ -63,7 +77,7 @@ const CountryList = ({ countries, handleClick, weatherData }) => {
             handleClick={handleClick}
           />
         ))}
-      </>
+      </ul>
     );
   } else {
     return (
@@ -93,7 +107,21 @@ const App = () => {
     });
   }, [search]);
 
-  //a48e6f7dca8c2779da151ec1305dd819
+  useEffect(() => {
+    const baseUrl = "http://api.weatherstack.com/current";
+
+    const api_key = process.env.REACT_APP_NOT_API_KEY;
+    if (countries.length === 1) {
+      const capital = countries.map((country) => country.capital);
+      if (capital[0]) {
+        axios
+          .get(`${baseUrl}?access_key=${api_key}&query=${capital[0]}`)
+          .then((response) => {
+            setWeatherData(response.data);
+          });
+      }
+    }
+  }, [countries]);
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
@@ -102,11 +130,11 @@ const App = () => {
   const handleClick = (countryName) => {
     setSearch(countryName);
   };
-  console.log(weatherData);
+
   return (
     <div>
-      <Filter handleSearchChange={handleSearchChange} search={search} />
-      <CountryList
+      <SearchBar handleSearchChange={handleSearchChange} search={search} />
+      <ListCountries
         countries={countries}
         handleClick={handleClick}
         weatherData={weatherData}
@@ -116,5 +144,3 @@ const App = () => {
 };
 
 export default App;
-
-//https://github.com/l0ve2cr3ate/fullstack-open-2020/tree/master/part2/data-for-countries
