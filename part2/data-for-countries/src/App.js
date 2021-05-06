@@ -98,6 +98,7 @@ const App = () => {
 
   useEffect(() => {
     axios.get("https://restcountries.eu/rest/v2/all").then((response) => {
+      console.log(response.data);
       if (search !== "") {
         const searchResult = response.data.filter((country) =>
           country.name.toLowerCase().includes(search.toLowerCase())
@@ -110,7 +111,7 @@ const App = () => {
   useEffect(() => {
     const baseUrl = "http://api.weatherstack.com/current";
 
-    const api_key = process.env.REACT_APP_NOT_API_KEY;
+    const api_key = process.env.REACT_APP_API_KEY;
     if (countries.length === 1) {
       const capital = countries.map((country) => country.capital);
       if (capital[0]) {

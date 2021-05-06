@@ -92,7 +92,6 @@ const App = () => {
       setPersonList(response.data);
     });
   }, []);
-  console.log("render", persons.length, "notes");
 
   const handleNameChange = (event) => {
     setNewName(event.target.value);
