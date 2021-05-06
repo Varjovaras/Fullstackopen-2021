@@ -98,7 +98,6 @@ const App = () => {
 
   useEffect(() => {
     axios.get("https://restcountries.eu/rest/v2/all").then((response) => {
-      console.log(response.data);
       if (search !== "") {
         const searchResult = response.data.filter((country) =>
           country.name.toLowerCase().includes(search.toLowerCase())
