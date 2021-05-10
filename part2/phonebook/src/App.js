@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import persons from './services/persons'
+
 import axios from "axios";
 
 const Person = ({ person }) => {
