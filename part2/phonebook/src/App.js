@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import persons from './services/persons'
+import personService from "./services/persons";
 
-import axios from "axios";
-
-const Person = ({ person }) => {
-  return <li>{person.name + " " + person.number} </li>;
+const Person = ({ person, handleDeletePerson }) => {
+  return (
+    <li>
+      {person.name + " " + person.number}{" "}
+      <button onClick={handleDeletePerson}>delete</button>{" "}
+    </li>
+  );
 };
 
 const PersonList = ({ showPersons }) => {
@@ -51,10 +54,12 @@ const AddName = ({
       id: persons.length + 1,
     };
 
-    setPersons(persons.concat(nameObject));
-    setShowPersons(persons.concat(nameObject));
-    setNewName("");
-    setNewNumber("");
+    personService.create(nameObject).then((returnedPerson) => {
+      setPersons(persons.concat(returnedPerson.data));
+      setShowPersons(persons.concat(returnedPerson.data));
+      setNewName("");
+      setNewNumber("");
+    });
   };
 
   return (
@@ -84,12 +89,11 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
-  const [personList, setPersonList] = useState(persons);
+  const [personList, setPersonList] = useState([]);
 
   useEffect(() => {
-    console.log("effect");
-    axios.get("http://localhost:3001/persons").then((response) => {
-      console.log("promise fulfilled");
+    personService.getAll().then((response) => {
+      console.log(response.data);
       setPersons(response.data);
       setPersonList(response.data);
     });
