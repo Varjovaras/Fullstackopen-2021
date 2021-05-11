@@ -1,88 +1,9 @@
 import React, { useState, useEffect } from "react";
 import personService from "./services/persons";
-
-const Person = ({ person, handleDeletePerson }) => {
-  return (
-    <li>
-      {person.name + " " + person.number}{" "}
-      <button onClick={handleDeletePerson}>delete</button>{" "}
-    </li>
-  );
-};
-
-const PersonList = ({ showPersons }) => {
-  return (
-    <ul>
-      {showPersons.map((person) => (
-        <Person key={person.id + 1} person={person} />
-      ))}
-    </ul>
-  );
-};
-
-const Filter = ({ filter, handleFilterChange }) => {
-  return (
-    <form>
-      <div>
-        filter shown with <input value={filter} onChange={handleFilterChange} />{" "}
-      </div>
-    </form>
-  );
-};
-
-const AddName = ({
-  persons,
-  newName,
-  setNewName,
-  newNumber,
-  setNewNumber,
-  setShowPersons,
-  setPersons,
-  handleNameChange,
-  handleNumberChange,
-}) => {
-  const addName = (event) => {
-    event.preventDefault();
-
-    const duplicateChecker = persons.find((p) => newName === p.name);
-    if (duplicateChecker)
-      return alert(`${newName} is already added to phonebook`);
-
-    const nameObject = {
-      name: newName,
-      number: newNumber,
-      id: persons.length + 1,
-    };
-
-    personService.create(nameObject).then((returnedPerson) => {
-      setPersons(persons.concat(returnedPerson.data));
-      setShowPersons(persons.concat(returnedPerson.data));
-      setNewName("");
-      setNewNumber("");
-    });
-  };
-
-  return (
-    <div>
-      <form onSubmit={addName}>
-        <div>
-          name:{" "}
-          <input
-            value={newName}
-            onChange={handleNameChange}
-            persons={persons}
-          />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-    </div>
-  );
-};
+import Person from "./components/Person";
+import PersonList from "./components/PersonList";
+import AddName from "./components/AddName";
+import Filter from "./components/Filter";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -116,6 +37,21 @@ const App = () => {
     setPersonList(filtered);
   };
 
+  const handleDeletePerson = (id) => {
+    console.log(id);
+    const person = persons.find((p) => p.id === id);
+    const confirmDelete = window.confirm(`Delete ${person.name} ?`);
+    if (confirmDelete) {
+      personService.deletePerson(id).then(() => {
+        const filteredPersons = persons.filter((person) => person.id !== id);
+        setPersons(filteredPersons);
+        setPersonList(filteredPersons);
+
+        setFilter("");
+      });
+    }
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -144,7 +80,11 @@ const App = () => {
 
       <h2>Numbers</h2>
 
-      <PersonList person={Person} showPersons={personList} />
+      <PersonList
+        person={Person}
+        showPersons={personList}
+        handleDeletePerson={handleDeletePerson}
+      />
     </div>
   );
 };
