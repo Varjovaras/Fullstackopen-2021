@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import personService from "./services/persons";
-import Person from "./components/Person";
 import PersonList from "./components/PersonList";
 import AddName from "./components/AddName";
 import Filter from "./components/Filter";
@@ -14,7 +13,6 @@ const App = () => {
 
   useEffect(() => {
     personService.getAll().then((response) => {
-      console.log(response.data);
       setPersons(response.data);
       setPersonList(response.data);
     });
@@ -61,7 +59,7 @@ const App = () => {
         setFilter={setFilter}
         persons={persons}
         setPersons={setPersons}
-        setShowPersons={setPersonList}
+        setPersonList={setPersonList}
         handleFilterChange={handleFilterChange}
       />
       <h2>add a new</h2>
@@ -73,16 +71,14 @@ const App = () => {
         setPersons={setPersons}
         handleNameChange={handleNameChange}
         handleNumberChange={handleNumberChange}
-        setShowPersons={setPersonList}
+        setPersonList={setPersonList}
         setNewName={setNewName}
         setNewNumber={setNewNumber}
       />
 
       <h2>Numbers</h2>
-
       <PersonList
-        person={Person}
-        showPersons={personList}
+        personList={personList}
         handleDeletePerson={handleDeletePerson}
       />
     </div>

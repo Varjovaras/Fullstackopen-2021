@@ -1,12 +1,13 @@
 import React from "react";
 import Person from "./Person";
 
-const PersonList = ({ showPersons, handleDeletePerson }) => {
+const PersonList = ({ personList, handleDeletePerson }) => {
+  // console.log(personList);
   return (
     <ul>
-      {showPersons.map((person) => (
+      {personList?.map((person) => (
         <Person
-          key={person.id + 1}
+          key={person.id}
           person={person}
           handleDeletePerson={handleDeletePerson}
         />
