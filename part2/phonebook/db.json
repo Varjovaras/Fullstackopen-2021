@@ -1,39 +1,14 @@
 {
   "persons": [
     {
-      "name": "perrso",
-      "number": "420",
-      "id": 4
+      "name": "jorma jormala",
+      "number": "420 69",
+      "id": 1
     },
     {
-      "name": "jorma",
-      "number": "420 569",
-      "id": 6
-    },
-    {
-      "name": "jormalaalalapföajfa",
-      "number": "",
-      "id": 8
-    },
-    {
-      "name": "tarparkoapfjo",
-      "number": "40202123211",
-      "id": 9
-    },
-    {
-      "name": "tapppppajaa",
-      "number": "42040202",
-      "id": 12
-    },
-    {
-      "name": "varmalalalalalal",
-      "number": "123114431",
-      "id": 13
-    },
-    {
-      "name": "fpoqekfpqempfo",
-      "number": "043i9499941",
-      "id": 7
+      "name": "tarmo tarmola ",
+      "number": "69 420 69",
+      "id": 2
     }
   ]
 }

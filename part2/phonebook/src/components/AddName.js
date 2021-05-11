@@ -26,7 +26,6 @@ const AddName = ({
     };
 
     personService.create(nameObject).then((returnedPerson) => {
-      console.log(returnedPerson);
       setPersons(persons.concat(returnedPerson.data));
       setPersonList(persons.concat(returnedPerson.data));
       setNewName("");
@@ -55,5 +54,4 @@ const AddName = ({
     </div>
   );
 };
-
 export default AddName;
