@@ -16,9 +16,15 @@ const AddName = ({
     event.preventDefault();
 
     const duplicateChecker = persons.find((p) => newName === p.name);
-    if (duplicateChecker)
-      return alert(`${newName} is already added to phonebook`);
-
+    console.log(duplicateChecker);
+    if (duplicateChecker) {
+      const confirmUpdate = window.confirm(
+        `${newName} is already added to phonebook. Replace the old number with a new one?`
+      );
+      if (confirmUpdate) {
+        personService.update(newNumber, duplicateChecker.id).then(() => {});
+      }
+    }
     const nameObject = {
       name: newName,
       number: newNumber,
