@@ -4,7 +4,7 @@
       "id": 1,
       "content": "HTML is easy",
       "date": "2019-05-30T17:30:31.098Z",
-      "important": true
+      "important": false
     },
     {
       "id": 2,
@@ -21,7 +21,7 @@
     {
       "content": "onko ttune",
       "date": "2021-05-06T11:16:55.483Z",
-      "important": true,
+      "important": false,
       "id": 4
     },
     {
@@ -115,7 +115,7 @@
       "id": 19
     },
     {
-      "content": "onko tune",
+      "content": "onko ttune",
       "date": "2021-05-06T11:39:08.488Z",
       "important": false,
       "id": 20
@@ -125,6 +125,18 @@
       "date": "2021-05-06T11:59:39.219Z",
       "important": false,
       "id": 21
+    },
+    {
+      "content": "jorma",
+      "date": "2021-05-17T11:20:07.311Z",
+      "important": false,
+      "id": 22
+    },
+    {
+      "content": "jorma",
+      "date": "2021-05-17T11:20:09.195Z",
+      "important": false,
+      "id": 23
     }
   ]
 }

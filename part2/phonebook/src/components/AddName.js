@@ -15,21 +15,41 @@ const AddName = ({
   const addName = (event) => {
     event.preventDefault();
 
-    const duplicateChecker = persons.find((p) => newName === p.name);
-    console.log(duplicateChecker);
-    if (duplicateChecker) {
-      const confirmUpdate = window.confirm(
-        `${newName} is already added to phonebook. Replace the old number with a new one?`
-      );
-      if (confirmUpdate) {
-        personService.update(newNumber, duplicateChecker.id).then(() => {});
-      }
-    }
     const nameObject = {
       name: newName,
       number: newNumber,
       id: persons.length + 1,
     };
+
+    const duplicateChecker = persons.find((person) => newName === person.name);
+    if (duplicateChecker) {
+      const confirmUpdate = window.confirm(
+        `${newName} is already added to phonebook. Replace the old number with a new one?`
+      );
+      if (confirmUpdate) {
+        const person = persons.find((person) => person.name === newName);
+        const changedPerson = { ...person, number: newNumber };
+
+        personService
+          .update(person.id, changedPerson)
+          .then((returnedPerson) => {
+            setPersons(
+              persons.map((p) =>
+                p.id !== returnedPerson.id ? p : returnedPerson
+              )
+            );
+            setPersonList(
+              persons.map((p) =>
+                p.id !== returnedPerson.id ? p : returnedPerson
+              )
+            );
+          });
+      }
+      setNewName("");
+      setNewNumber("");
+
+      return;
+    }
 
     personService.create(nameObject).then((returnedPerson) => {
       setPersons(persons.concat(returnedPerson.data));

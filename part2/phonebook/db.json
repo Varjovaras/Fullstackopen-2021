@@ -2,23 +2,18 @@
   "persons": [
     {
       "name": "jorma jormala",
-      "number": "420 69",
+      "number": "400 500 600",
       "id": 1
     },
     {
-      "name": "tarmo tarmola ",
-      "number": "69 420 69",
+      "name": "tapio tepponen",
+      "number": "600",
       "id": 2
     },
     {
-      "name": "tarmo termo",
-      "number": "420 69 420 69 69",
+      "name": "tapio tarmola",
+      "number": "100 200 300",
       "id": 3
-    },
-    {
-      "name": "teppo tepponen",
-      "number": "420 69696969969",
-      "id": 4
     }
   ]
 }
