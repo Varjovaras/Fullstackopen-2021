@@ -1,5 +1,6 @@
 import React from "react";
 import personService from "./../services/persons";
+import DuplicateChecker from "./DuplicateChecker";
 
 const AddName = ({
   persons,
@@ -11,6 +12,7 @@ const AddName = ({
   setPersons,
   handleNameChange,
   handleNumberChange,
+  setErrorMessage,
 }) => {
   const addName = (event) => {
     event.preventDefault();
@@ -21,39 +23,25 @@ const AddName = ({
       id: persons.length + 1,
     };
 
-    const duplicateChecker = persons.find((person) => newName === person.name);
-    if (duplicateChecker) {
-      const confirmUpdate = window.confirm(
-        `${newName} is already added to phonebook. Replace the old number with a new one?`
-      );
-      if (confirmUpdate) {
-        const person = persons.find((person) => person.name === newName);
-        const changedPerson = { ...person, number: newNumber };
-
-        personService
-          .update(person.id, changedPerson)
-          .then((returnedPerson) => {
-            setPersons(
-              persons.map((p) =>
-                p.id !== returnedPerson.id ? p : returnedPerson
-              )
-            );
-            setPersonList(
-              persons.map((p) =>
-                p.id !== returnedPerson.id ? p : returnedPerson
-              )
-            );
-          });
-      }
-      setNewName("");
-      setNewNumber("");
-
-      return;
-    }
+    DuplicateChecker({
+      persons,
+      newName,
+      newNumber,
+      personService,
+      setPersons,
+      setPersonList,
+      setErrorMessage,
+      setNewName,
+      setNewNumber,
+    });
 
     personService.create(nameObject).then((returnedPerson) => {
       setPersons(persons.concat(returnedPerson.data));
       setPersonList(persons.concat(returnedPerson.data));
+      setErrorMessage(`Added number for ${returnedPerson.data.name}`);
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
       setNewName("");
       setNewNumber("");
     });

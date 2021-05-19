@@ -3,6 +3,7 @@ import personService from "./services/persons";
 import PersonList from "./components/PersonList";
 import AddName from "./components/AddName";
 import Filter from "./components/Filter";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -10,6 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
   const [personList, setPersonList] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     personService.getAll().then((response) => {
@@ -44,7 +46,10 @@ const App = () => {
         const filteredPersons = persons.filter((person) => person.id !== id);
         setPersons(filteredPersons);
         setPersonList(filteredPersons);
-
+        setErrorMessage(`Deleted number for ${person.name}`);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
         setFilter("");
       });
     }
@@ -53,6 +58,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={errorMessage} />
 
       <Filter
         filter={filter}
@@ -74,6 +80,7 @@ const App = () => {
         setPersonList={setPersonList}
         setNewName={setNewName}
         setNewNumber={setNewNumber}
+        setErrorMessage={setErrorMessage}
       />
 
       <h2>Numbers</h2>
