@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const cors = require("cors");
+require("dotenv").config();
+const Note = require('./models/note')
+
 
 app.use(express.static("build"));
 app.use(express.json());
