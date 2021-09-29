@@ -35,16 +35,21 @@ const AddName = ({
       setNewNumber,
     });
 
-    personService.create(nameObject).then((returnedPerson) => {
-      setPersons(persons.concat(returnedPerson.data));
-      setPersonList(persons.concat(returnedPerson.data));
-      setErrorMessage(`Added number for ${returnedPerson.data.name}`);
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
-      setNewName("");
-      setNewNumber("");
-    });
+    personService
+      .create(nameObject)
+      .then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson.data));
+        setPersonList(persons.concat(returnedPerson.data));
+        setErrorMessage(`Added number for ${returnedPerson.data.name}`);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+        setNewName("");
+        setNewNumber("");
+      })
+      .catch((error) => {
+        setErrorMessage(`${error.response.data.error}`);
+      });
   };
 
   return (

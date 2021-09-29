@@ -1,5 +1,6 @@
 import axios from "axios";
 const baseUrl = "/api/persons";
+// const baseUrl = "https://limitless-waters-75235.herokuapp.com/api/persons";
 
 const getAll = () => {
   return axios.get(baseUrl);
