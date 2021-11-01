@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "onko tune",
+  "author": "onko tune",
+  "url": "nyt on tune",
+  "likes": 69
+}
+
