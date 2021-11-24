@@ -14,12 +14,23 @@ const App = () => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
   }, []);
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser');
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+      blogService.setToken(user.token);
+    }
+  }, []);
+
   const addBlog = (event) => {
+    console.log(newBlog);
     event.preventDefault();
     const blogObject = {
-      content: newBlog,
+      title: newBlog.title,
+      author: newBlog.author,
+      url: newBlog.url,
       date: new Date().toISOString(),
-      important: Math.random() > 0.5,
     };
 
     blogService.create(blogObject).then((returnedBlog) => {
@@ -28,25 +39,25 @@ const App = () => {
     });
   };
 
-  const handleBlogChange = (event) => {
-    console.log(event.target.value);
-    setNewBlog(event.target.value);
-  };
-
   const handleLogin = async (event) => {
     event.preventDefault();
+
     try {
       const user = await loginService.login({
         username,
         password,
       });
+      console.log(user);
+      window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user));
+      blogService.setToken(user.token);
       setUser(user);
       setUsername('');
       setPassword('');
     } catch (exception) {
-      console.log('=)');
+      // setErrorMessage('wrong credentials');
       setTimeout(() => {
-        console.log('(=');
+        console.log('TIMEOUT ERROR');
+        // setErrorMessage(null);
       }, 5000);
     }
   };
@@ -75,12 +86,49 @@ const App = () => {
     </form>
   );
 
+  const handleTitleChange = (event) => {
+    setNewBlog({ ...newBlog, title: event.target.value });
+  };
+  const handleAuthorChange = (event) => {
+    setNewBlog({ ...newBlog, author: event.target.value });
+  };
+  const handleUrlChange = (event) => {
+    setNewBlog({ ...newBlog, url: event.target.value });
+  };
+
   const blogForm = () => (
     <form onSubmit={addBlog}>
-      <input value={newBlog} onChange={handleBlogChange} />
-      <button type="submit">save</button>
+      <h2>Create new</h2>
+      <div>
+        Title:
+        <input value={newBlog.title} onChange={handleTitleChange} />
+      </div>
+      <div>
+        Author:
+        <input value={newBlog.author} onChange={handleAuthorChange} />
+      </div>
+      <div>
+        Url:
+        <input value={newBlog.url} onChange={handleUrlChange} />
+      </div>
+      <button type="submit">create</button>
     </form>
   );
+
+  const logoutHandler = () => {
+    window.localStorage.removeItem('loggedBlogappUser');
+    setUser(null);
+  };
+
+  const logout = () => {
+    return (
+      <form onSubmit={logoutHandler}>
+        <p>
+          {user.username} logged in <button type="submit">logout</button>
+        </p>
+      </form>
+    );
+  };
 
   if (user === null) {
     return (
@@ -106,7 +154,7 @@ const App = () => {
         loginForm()
       ) : (
         <div>
-          {/* {logout()} */}
+          {logout()}
           {blogForm()}
           {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
