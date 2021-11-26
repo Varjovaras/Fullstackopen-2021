@@ -1,0 +1,18 @@
+post http://localhost:3000/api/users 
+Content-Type: application/json
+
+{
+"username": "troasdasdasfaasdsfasdl5312345135l", "name": "troll500", "password": "trololol500", "blogs": ["Jormo", "jorma"]
+}
+
+#####
+
+post http://localhost:3000/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtyaXN0amFuNjk0MjAiLCJpZCI6IjYxYTAxYWQ0NDEwNmYzODE4ZjMyMDY1OCIsImlhdCI6MTYzNzg4MzY2NH0.8BLoXH8BI6SmDPH2Yc00pN2iaTCjZF9BrkVvvSTytrY
+
+{
+    "title": "problemasd ?",
+    "Author": "PROBLEM asd?",
+    "url": "PROBLEM !?!?asd?!"
+}

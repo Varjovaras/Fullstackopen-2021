@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-mongoose.set('useCreateIndex', true);
+// mongoose.set('useCreateIndex', true);
 
 mongoose
   .connect(config.MONGODB_URI, {
@@ -24,7 +24,7 @@ mongoose
   .catch((error) => {
     logger.error('error connection to MongoDB:', error.message);
   });
-mongoose.set('useFindAndModify', false);
+// mongoose.set('useFindAndModify', false);
 
 app.use(cors());
 app.use(express.json());
