@@ -24,8 +24,8 @@ const App = () => {
   }, []);
 
   const addBlog = (event) => {
-    console.log(newBlog);
     event.preventDefault();
+
     const blogObject = {
       title: newBlog.title,
       author: newBlog.author,
@@ -37,22 +37,24 @@ const App = () => {
       setNewBlog('');
     });
   };
-
   const handleLogin = async (event) => {
     event.preventDefault();
-
     try {
       const user = await loginService.login({
         username,
         password,
       });
+
+      blogService.setToken(user.token);
+      window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user));
+
       setUser(user);
       setUsername('');
       setPassword('');
     } catch (exception) {
-      // setErrorMessage('Wrong credentials');
+      console.log('=)');
       setTimeout(() => {
-        // setErrorMessage(null);
+        console.log('(=');
       }, 5000);
     }
   };
@@ -135,7 +137,7 @@ const App = () => {
         ) : (
           <div>
             <p>{user.username} logged in</p>
-            {blogForm()}
+            {/* {blogForm()} */}
           </div>
         )}
       </div>

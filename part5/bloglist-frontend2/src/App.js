@@ -25,8 +25,7 @@ const App = () => {
 
   const addBlog = (event) => {
     event.preventDefault();
-    console.log(event);
-    console.log(newBlog);
+
     const blogObject = {
       title: newBlog.title,
       author: newBlog.author,
@@ -38,6 +37,7 @@ const App = () => {
       setNewBlog('');
     });
   };
+  
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
