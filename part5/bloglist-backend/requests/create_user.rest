@@ -1,5 +1,7 @@
 post http://localhost:3003/api/users 
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IktyaXN0amFuIFJhamFuaWVtaSIsImlkIjoiNjFhMzg2MGRkMmI3MjgyM2U2M2E1NGI3IiwiaWF0IjoxNjM4MTE3NzgxfQ.fGuvcQcXUXvqkbUZ3iJwXW-zilWUpoiZVTvjHwG2Kc0
+
 
 {
 "username": "trol5315135l", "name": "troll500", "password": "trololol500", "blogs": ["Jormo", "jorma"]

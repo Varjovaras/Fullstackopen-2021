@@ -2,7 +2,7 @@ post http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-"username": "troasdasdasfaasdsfasdl5312345135l", "name": "troll500", "password": "trololol500", "blogs": ["Jormo", "jorma"]
+"username": "Kristjan Rajaniemi", "name": "troll500", "password": "pelle1234", "blogs": ["Jormo", "jorma"]
 }
 
 #####

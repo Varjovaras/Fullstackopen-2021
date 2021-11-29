@@ -1,8 +1,17 @@
 
-POST http://localhost:3003/api/blogs 
+PUT http://localhost:3003/api/blogs/5a43fde2cbd20b12a2c34e91
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZpbGxlMzAiLCJpZCI6IjYxODkyNDdjODQ4YWNmNzI5Nzk4Yzc4MyIsImlhdCI6MTYzNjM3ODA0MCwiZXhwIjoxNjM2MzgxNjQwfQ.QectQ6QgrSjOxrob8PYJnik3MIug5GLI4kOqlW_TXoQ
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImtyaXN0amFuNjk0MjAiLCJpZCI6IjYxYTAxYWQ0NDEwNmYzODE4ZjMyMDY1OCIsImlhdCI6MTYzODE0Mzc0NH0.u8YC3muTkZrkoSFsuWKSATF79b8kTmCckvfBo4YMAso
 
 {
-"title": "Second test Test", "author": "Markku", "url": "www.Markku.com", "likes": 4500
+  "_id": "5a43fde2cbd20b12a2c34e91",
+  "user": {
+    "_id": "5a43e6b6c37f3d065eaaa581",
+    "username": "Kristjan Rajaniemi",
+    "name": "Matti Luukkainen"
+  },
+  "likes": 0,
+  "author": "Joel Spolsky",
+  "title": "The Joel Test: 12 Steps to Better Code",
+  "url": "https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/"
 }

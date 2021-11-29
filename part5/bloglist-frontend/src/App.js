@@ -127,6 +127,23 @@ const App = () => {
     );
   };
 
+  const handleDeleteBlog = (title) => {
+    const blog = blogs.find((p) => p.title === title);
+    const id = blog.id;
+    console.log(blog);
+    const confirmDelete = window.confirm(`Delete ${blog.title} ?`);
+    if (confirmDelete) {
+      blogService.deleteBlog(id).then(() => {
+        const filteredBlogs = blogs.filter((blog) => blog.title !== title);
+        setBlogs(filteredBlogs);
+        setInfoMessage(`Deleted blog  ${blog.name}`);
+        setTimeout(() => {
+          setInfoMessage(null);
+        }, 5000);
+      });
+    }
+  };
+
   return (
     <div>
       <h2>blogs</h2>
@@ -144,7 +161,12 @@ const App = () => {
           >
             <BlogForm createBlog={createBlog} />
           </Togglable>
-          <BlogList blogs={blogs} setBlogs={setBlogs} />
+          <BlogList
+            blogs={blogs}
+            setBlogs={setBlogs}
+            handleDeleteBlog={handleDeleteBlog}
+            user={user.username}
+          />
         </div>
       )}
     </div>

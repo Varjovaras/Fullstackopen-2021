@@ -2,7 +2,7 @@ import React from 'react';
 import Togglable from './Togglable';
 import blogService from '../services/blogs';
 
-const Blog = ({ blog, setBlogs }) => {
+const Blog = ({ blog, setBlogs, handleDeleteBlog, user }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -11,30 +11,48 @@ const Blog = ({ blog, setBlogs }) => {
     marginBottom: 5,
   };
 
+  const DeleteButton = () => {
+    if (!blog.user) {
+      return <></>;
+    } else if (user === blog.user.username) {
+      return (
+        <>
+          <button onClick={() => handleDeleteBlog(blog.title)}>delete</button>{' '}
+        </>
+      );
+    } else {
+      return <div></div>;
+    }
+  };
+
   const handleLikes = async (event) => {
     event.preventDefault();
+
     const updatedBlog = {
-      ...blog,
+      user: blog.id,
       likes: blog.likes + 1,
+      author: blog.author,
+      title: blog.title,
+      url: blog.url,
     };
-    console.log(updatedBlog);
-    await blogService.update(blog.id, updatedBlog);
+    await blogService.update(updatedBlog.user, updatedBlog);
     const blogs = await blogService.getAll();
     setBlogs(blogs);
   };
 
   return (
     <div style={blogStyle}>
-      <div>
+      <div className="blog">
         {blog.title}{' '}
         <Togglable buttonLabel="view" cancelLabel={'hide'}>
           <p> {blog.author}</p>
           <p> {blog.author}</p>
-          <p>
+          <p className="likeP">
             {' '}
             {blog.likes} <button onClick={handleLikes}>like</button>
           </p>
         </Togglable>
+        <DeleteButton />
       </div>
     </div>
   );
