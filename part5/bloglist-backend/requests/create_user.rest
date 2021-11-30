@@ -4,5 +4,5 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Iktya
 
 
 {
-"username": "trol5315135l", "name": "troll500", "password": "trololol500", "blogs": ["Jormo", "jorma"]
+"username": "user1234", "name": "user1234", "password": "password", "blogs": ["Jormo", "jorma"]
 }
