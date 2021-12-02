@@ -49,7 +49,7 @@ const Blog = ({ blog, setBlogs, handleDeleteBlog, user }) => {
           <p> {blog.author}</p>
           <p className="likeP">
             {' '}
-            {blog.likes} <button onClick={handleLikes}>like</button>
+            {blog.likes} likes <button onClick={handleLikes}>like</button>
           </p>
         </Togglable>
         <DeleteButton />

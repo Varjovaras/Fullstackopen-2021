@@ -37,68 +37,65 @@ describe('Blog app', function () {
       cy.get('.error').should('have.css', 'color', 'rgb(255, 0, 0)');
     });
   });
-});
 
-describe('when logged in', function () {
-  beforeEach(function () {
-    cy.login({ username: 'user1234', password: 'password' });
-  });
-
-  it('a new blog can be created', function () {
-    cy.contains('new blog').click();
-    cy.get('#title').type('a blog created by cypress');
-    cy.get('#author').type('a blog created by cypress');
-    cy.get('#url').type('a blog created by cypress');
-    cy.get('#create-blog').click();
-    cy.contains('a blog created by cypress');
-  });
-
-  it('you can like a blog', function () {
-    cy.contains('view').click();
-    cy.contains('like').click();
-    cy.contains('1');
-  });
-
-  it('you can delete a blog', function () {
-    cy.contains('new blog').click();
-    cy.get('#title').type('a blog2 created by cypress');
-    cy.get('#author').type('a blog2 created by cypress');
-    cy.get('#url').type('a blog2 created by cypress');
-    cy.get('#create-blog').click();
-    cy.contains('delete').click();
-    cy.on('window:confirm', () => true);
-    cy.get('html').should('not.contain', 'a blog2 created by cypress');
-  });
-
-  describe('when a blog exists', function () {
+  describe('when logged in', function () {
     beforeEach(function () {
-      const blog1 = {
-        title: 'a blog created by cypress',
-        author: 'a blog created by cypress',
-        url: 'a blog created by cypress',
-        likes: 5,
-      };
-      const blog2 = {
-        title: 'a blog created by cypress',
-        author: 'a blog created by cypress',
-        url: 'a blog created by cypress',
-        likes: 5,
-      };
-      const blog3 = {
-        title: 'a blog created by cypress',
-        author: 'a blog created by cypress',
-        url: 'a blog created by cypress',
-        likes: 5,
-      };
-      cy.request('POST', 'http://localhost:3003/api/blogs/', blog1);
-      cy.request('POST', 'http://localhost:3003/api/blogs/', blog2);
-      cy.request('POST', 'http://localhost:3003/api/blogs/', blog3);
+      cy.login({ username: 'user1234', password: 'password' });
     });
-    it.only('and they are automatically sorted by likes', function () {
-      cy.get('blogTitle').should((items) => {
-        expect(items[0]).to.contain('Blog with 15 likes');
-        expect(items[1]).to.contain('Blog with 6 likes');
-        expect(items[2]).to.contain('Blog with 1 like');
+
+    it('a new blog can be created', function () {
+      cy.contains('new blog').click();
+      cy.get('#title').type('a blog created by cypress');
+      cy.get('#author').type('a blog created by cypress');
+      cy.get('#url').type('a blog created by cypress');
+      cy.get('#create-blog').click();
+      cy.contains('a blog created by cypress');
+    });
+
+    it('you can delete a blog', function () {
+      cy.contains('new blog').click();
+      cy.get('#title').type('a blog2 created by cypress');
+      cy.get('#author').type('a blog2 created by cypress');
+      cy.get('#url').type('a blog2 created by cypress');
+      cy.get('#create-blog').click();
+      cy.contains('delete').click();
+      cy.on('window:confirm', () => true);
+      cy.get('html').should('not.contain', 'a blog2 created by cypress');
+    });
+    describe('add several blogs', function () {
+      beforeEach(function () {
+        const blog1 = {
+          title: 'Title 1',
+          author: 'Author 1',
+          url: 'Url 1',
+          likes: 5,
+        };
+        const blog2 = {
+          title: 'Title 2',
+          author: 'Author 2',
+          url: 'Url 2',
+          likes: 7,
+        };
+        const blog3 = {
+          title: 'Title 3',
+          author: 'Author 3',
+          url: 'Url 3',
+          likes: 15,
+        };
+        cy.createBlog(blog1);
+        cy.createBlog(blog2);
+        cy.createBlog(blog3);
+      });
+
+      it('you can like a blog', function () {
+        cy.contains('view').click();
+        cy.contains('like').click();
+        cy.contains('1');
+      });
+
+      it('first post has the most likes', function () {
+        cy.contains('view').click();
+        cy.contains('15 likes');
       });
     });
   });
