@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import personService from "./services/persons";
-import PersonList from "./components/PersonList";
-import AddName from "./components/AddName";
-import Filter from "./components/Filter";
-import Notification from "./components/Notification";
+import React, { useState, useEffect } from 'react';
+import personService from './services/persons';
+import PersonList from './components/PersonList';
+import AddName from './components/AddName';
+import Filter from './components/Filter';
+import Notification from './components/Notification';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
-  const [newName, setNewName] = useState("");
-  const [newNumber, setNewNumber] = useState("");
-  const [filter, setFilter] = useState("");
+  const [newName, setNewName] = useState('');
+  const [newNumber, setNewNumber] = useState('');
+  const [filter, setFilter] = useState('');
   const [personList, setPersonList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -39,8 +39,8 @@ const App = () => {
 
   const handleDeletePerson = (id) => {
     console.log(id);
-    const person = persons.find((p) => p.id === id);
-    const confirmDelete = window.confirm(`Delete ${person.name} ?`);
+    const findPerson = persons.find((p) => p.id === id);
+    const confirmDelete = window.confirm(`Delete ${findPerson.name} ?`);
     if (confirmDelete) {
       personService.deletePerson(id).then(() => {
         const filteredPersons = persons.filter((person) => person.id !== id);
@@ -50,7 +50,7 @@ const App = () => {
         setTimeout(() => {
           setErrorMessage(null);
         }, 5000);
-        setFilter("");
+        setFilter('');
       });
     }
   };
