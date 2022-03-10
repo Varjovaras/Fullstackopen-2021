@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const SearchBar = ({ filter, handleSearchChange }) => {
   return (
     <form>
       <div>
-        search for country:{" "}
-        <input value={filter} onChange={handleSearchChange} />{" "}
+        search for country:{' '}
+        <input value={filter} onChange={handleSearchChange} />{' '}
       </div>
     </form>
   );
@@ -15,7 +15,7 @@ const SearchBar = ({ filter, handleSearchChange }) => {
 const Country = ({ country, handleClick }) => {
   return (
     <li>
-      {country.name}{" "}
+      {country.name}{' '}
       <button onClick={() => handleClick(country.name)}>show</button>
     </li>
   );
@@ -52,8 +52,8 @@ const WeatherData = ({ weatherData }) => {
         <img src={weatherData?.current.weather_icons} alt=""></img>
       </div>
       <div>
-        wind: {weatherData?.current.wind_speed} km/h direction{" "}
-        {weatherData?.current.wind_dir}{" "}
+        wind: {weatherData?.current.wind_speed} km/h direction{' '}
+        {weatherData?.current.wind_dir}{' '}
       </div>
     </div>
   );
@@ -93,12 +93,12 @@ const ListCountries = ({
 
 const App = () => {
   const [countries, setCountries] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [weatherData, setWeatherData] = useState(null);
 
   useEffect(() => {
-    axios.get("https://restcountries.eu/rest/v2/all").then((response) => {
-      if (search !== "") {
+    axios.get('https://restcountries.eu/rest/v2/all').then((response) => {
+      if (search !== '') {
         const searchResult = response.data.filter((country) =>
           country.name.toLowerCase().includes(search.toLowerCase())
         );
@@ -108,7 +108,7 @@ const App = () => {
   }, [search]);
 
   useEffect(() => {
-    const baseUrl = "http://api.weatherstack.com/current";
+    const baseUrl = 'http://api.weatherstack.com/current';
 
     const api_key = process.env.REACT_APP_API_KEY;
     if (countries.length === 1) {
@@ -133,12 +133,12 @@ const App = () => {
 
   return (
     <div>
-      <SearchBar handleSearchChange={handleSearchChange} search={search} />
+      <SearchBar handleSearchChange={handleSearchChange} filter={search} />
       <ListCountries
         countries={countries}
         handleClick={handleClick}
         weatherData={weatherData}
-      />{" "}
+      />{' '}
     </div>
   );
 };
