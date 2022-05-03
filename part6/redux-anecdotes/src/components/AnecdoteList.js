@@ -7,12 +7,13 @@ const AnecdoteList = () => {
   const anecdotes = useSelector((state) => state.anecdotes);
   const dispatch = useDispatch();
 
-  const vote = (id) => {
-    console.log('vote', id);
-    dispatch(voteAnecdote(id));
+  const vote = (anecdote) => {
+    console.log('vote', anecdote.id);
+    dispatch(voteAnecdote(anecdote.id));
     dispatch(
       setNotification(
-        `you voted '${anecdotes.find((a) => a.id === id).content}'`
+        `you voted '${anecdotes.find((a) => a.id === anecdote.id).content}'`,
+        5
       )
     );
   };
@@ -24,7 +25,7 @@ const AnecdoteList = () => {
           <div>{anecdote.content}</div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id)}>vote</button>
+            <button onClick={() => vote(anecdote)}>vote</button>
           </div>
         </div>
       ))}
