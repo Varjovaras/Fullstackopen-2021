@@ -3,7 +3,6 @@
 const notificationReducer = (state = '', action) => {
   switch (action.type) {
     case 'SET_NOTIFICATION':
-      console.log(action);
       return action.notification;
     case 'CLEAR_NOTIFICATION':
       return '';
@@ -13,7 +12,6 @@ const notificationReducer = (state = '', action) => {
 };
 
 export const setNotification = (notification) => {
-  console.log(notification);
   return async (dispatch) => {
     await dispatch({
       type: 'SET_NOTIFICATION',
