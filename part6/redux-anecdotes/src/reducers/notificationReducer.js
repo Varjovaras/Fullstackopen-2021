@@ -12,13 +12,15 @@ const notificationReducer = (state = '', action) => {
 };
 
 export const setNotification = (notification, time) => {
+  window.clearTimeout(window.timeout);
+
   return async (dispatch) => {
     dispatch({
       type: 'SET_NOTIFICATION',
       notification,
     });
 
-    await setTimeout(() => {
+    window.timeout = setTimeout(() => {
       dispatch({
         type: 'CLEAR_NOTIFICATION',
         notification: '',
