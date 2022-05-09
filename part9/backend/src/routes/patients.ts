@@ -21,23 +21,4 @@ router.get('/:id', (req, res) => {
   }
 });
 
-router.post('/', (req, res) => {
-  const { id, name, dateOfBirth, ssn, gender, occupation } = req.body;
-  const newPatientEntry = diaryService.addDiary(
-    date,
-    weather,
-    visibility,
-    comment
-  );
-  res.json(newDiaryEntry);
-});
-
-//adding a new diary !!!!!!!!!!!
-/*  id: string;
-  name: string;
-  dateOfBirth: string;
-  ssn: string;
-  gender: string;
-  occupation: string;*/
-
 export default router;
