@@ -4,7 +4,6 @@ import cors from 'cors';
 import diagnoses from './routes/diagnoses';
 import patients from './routes/patients';
 
-// import patients from '../data/patients';
 const app = express();
 
 app.use(express.json());
