@@ -7,14 +7,6 @@ const diagnoses_1 = __importDefault(require("../../data/diagnoses"));
 const getEntries = () => {
     return diagnoses_1.default;
 };
-// const getNonSensitiveEntries = (): NonSensitiveDiaryEntry[] => {
-//   return diaries.map(({ id, date, weather, visibility }) => ({
-//     id,
-//     date,
-//     weather,
-//     visibility,
-//   }));
-// };
 const addDiagnose = () => {
     return null;
 };
