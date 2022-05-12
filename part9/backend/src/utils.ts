@@ -69,6 +69,7 @@ const toNewDiaryEntry = ({
     ssn: parseSsn(ssn),
     gender: parseGender(gender),
     occupation: parseOccupation(occupation),
+    entries: [],
   };
 
   return newEntry;
