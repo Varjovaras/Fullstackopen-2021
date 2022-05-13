@@ -3,12 +3,24 @@ import { useParams } from 'react-router-dom';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import TransgenderIcon from '@mui/icons-material/Transgender';
+import { Diagnosis } from '../types';
 
-const SinglePatientPage = () => {
+type Props = {
+  diagnoses: Diagnosis[];
+};
+
+const SinglePatientPage = (diagnoses: Props) => {
   const { id } = useParams();
   const [{ patients }] = useStateValue();
   const patient = Object.values(patients).find((patient) => patient.id === id);
-  console.log(patient);
+  console.log(diagnoses.diagnoses);
+
+  const findDiagnoseName = (code: string) => {
+    const diagnoseName = diagnoses.diagnoses.find(
+      (element) => element.code === code
+    );
+    return diagnoseName?.name;
+  };
 
   return (
     <div>
@@ -33,7 +45,9 @@ const SinglePatientPage = () => {
             </p>
             <ul>
               {entry.diagnosisCodes?.map((code) => (
-                <li key={code}>{code}</li>
+                <li key={code}>
+                  {code} {findDiagnoseName(code)}{' '}
+                </li>
               ))}
             </ul>
           </div>
