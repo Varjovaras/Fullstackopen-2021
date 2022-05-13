@@ -9,13 +9,17 @@ const getEntries = (): Array<Patient> => {
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 const getSensitivePatients = (): PublicPatient[] => {
-  return patients.map(({ id, name, dateOfBirth, gender, occupation }) => ({
-    id,
-    name,
-    dateOfBirth,
-    gender,
-    occupation,
-  }));
+  return patients.map(
+    ({ id, name, dateOfBirth, gender, occupation, entries, ssn }) => ({
+      id,
+      name,
+      dateOfBirth,
+      gender,
+      occupation,
+      entries,
+      ssn,
+    })
+  );
 };
 
 const addPatient = (entry: NewPatientEntry): Patient => {

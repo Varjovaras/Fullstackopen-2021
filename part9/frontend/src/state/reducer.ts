@@ -6,10 +6,10 @@ export type Action =
       type: 'SET_PATIENT_LIST';
       payload: Patient[];
     }
-  | {
-      type: 'SET_SINGLE_PATIENT';
-      payload: Patient;
-    }
+  // | {
+  //     type: 'SET_SINGLE_PATIENT';
+  //     payload: Patient;
+  //   }
   | {
       type: 'ADD_PATIENT';
       payload: Patient;
@@ -40,4 +40,11 @@ export const reducer = (state: State, action: Action): State => {
     default:
       return state;
   }
+};
+
+export const setPatientList = (patientList: Patient[]): Action => {
+  return {
+    type: 'SET_PATIENT_LIST',
+    payload: patientList,
+  };
 };
