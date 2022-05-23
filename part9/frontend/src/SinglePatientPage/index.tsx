@@ -13,7 +13,6 @@ const SinglePatientPage = (diagnoses: Props) => {
   const { id } = useParams();
   const [{ patients }] = useStateValue();
   const patient = Object.values(patients).find((patient) => patient.id === id);
-  console.log(diagnoses.diagnoses);
 
   const findDiagnoseName = (code: string) => {
     const diagnoseName = diagnoses.diagnoses.find(
