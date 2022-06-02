@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import patients from '../../data/patients';
-import { Patient, PublicPatient, NewPatientEntry } from '../types';
+import {
+  Patient,
+  PublicPatient,
+  NewPatientEntry,
+  Entry,
+  newEntry,
+} from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
 const getEntries = (): Array<Patient> => {
@@ -35,6 +41,16 @@ const addPatient = (entry: NewPatientEntry): Patient => {
   return newPatientEntry;
 };
 
+const addEntry = (entry: newEntry, patientId: string): Entry => {
+  const id: string = uuidv4();
+  const newEntry = { ...entry, id };
+  const patient = findById(patientId);
+  if (patient) {
+    patient.entries.push(newEntry);
+  }
+  return newEntry;
+};
+
 const findById = (id: string): PublicPatient | undefined => {
   return patients.find((d) => d.id === id);
 };
@@ -44,4 +60,5 @@ export default {
   addPatient,
   getSensitivePatients,
   findById,
+  addEntry,
 };

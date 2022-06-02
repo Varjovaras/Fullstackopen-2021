@@ -48,7 +48,7 @@ const parseDate = (date: unknown): string => {
   return date;
 };
 
-type Fields = {
+type PatientFields = {
   name: unknown;
   dateOfBirth: unknown;
   ssn: unknown;
@@ -57,14 +57,14 @@ type Fields = {
   entries: Entry[];
 };
 
-const toNewDiaryEntry = ({
+const toNewPatientEntry = ({
   name,
   dateOfBirth,
   ssn,
   gender,
   occupation,
   entries,
-}: Fields): NewPatientEntry => {
+}: PatientFields): NewPatientEntry => {
   const newEntry: NewPatientEntry = {
     name: parseName(name),
     dateOfBirth: parseDate(dateOfBirth),
@@ -76,4 +76,57 @@ const toNewDiaryEntry = ({
 
   return newEntry;
 };
-export default toNewDiaryEntry;
+
+// type EntryFields = {
+//   description: unknown;
+//   date: unknown;
+//   specialist: unknown;
+// };
+
+export const toNewEntry = (object: any) => {
+  if (!object.description || !object.specialist || !object.date) {
+    throw new Error('Incorrect or missing entry');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  } else return object;
+};
+
+// export const toNewEntry = ({
+//   description,
+//   date,
+//   specialist,
+// }: EntryFields): newEntry => {
+//   const newEntry: newEntry = {
+//     description: parseDescription(description),
+//     date: parseDate(date),
+//     specialist: parseSpecialist(specialist),
+//   };
+
+//   return newEntry;
+// };
+
+// const parseDescription = (description: unknown): string => {
+//   if (!description || !isString(description)) {
+//     throw new Error('Missing description');
+//   }
+//   return description;
+// };
+
+// const parseSpecialist = (specialist: unknown): string => {
+//   if (!specialist || !isString(specialist)) {
+//     throw new Error('Missing specialist');
+//   }
+//   return specialist;
+// };
+
+// const isType = (type: unknown): type is Entry => {
+//   if (
+//     type === 'Hospital' ||
+//     type === 'OccupationalHealthcare' ||
+//     type === 'HealthCheck'
+//   ) {
+//     return true;
+//   }
+//   return false;
+// };
+
+export default toNewPatientEntry;

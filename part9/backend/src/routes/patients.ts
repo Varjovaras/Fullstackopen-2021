@@ -1,6 +1,7 @@
 import express from 'express';
 import patientService from '../services/patientService';
-import toNewPatientEntry from '../utils';
+import toNewPatientEntry, { toNewEntry } from '../utils';
+import { newEntry } from '../types';
 
 const router = express.Router();
 
@@ -12,7 +13,6 @@ router.post('/', (req, res) => {
   try {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const newPatientEntry = toNewPatientEntry(req.body);
-
     const addedEntry = patientService.addPatient(newPatientEntry);
     res.json(addedEntry);
   } catch (error: unknown) {
@@ -21,6 +21,18 @@ router.post('/', (req, res) => {
       errorMessage += ' Error: ' + error.message;
     }
     res.status(400).send(errorMessage);
+  }
+});
+
+router.post('/:id/entries', (req, res) => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const newEntry: newEntry = toNewEntry(req.body);
+    const patientId = req.params.id;
+    const addedEntry = patientService.addEntry(newEntry, patientId);
+    res.json(addedEntry);
+  } catch (error: unknown) {
+    res.status(400).send(error);
   }
 });
 
