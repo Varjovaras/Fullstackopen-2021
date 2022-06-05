@@ -1,27 +1,25 @@
-import { useState } from 'react';
 import { ErrorMessage, Field, FieldProps, FormikProps } from 'formik';
 import {
   Select,
-  FormControl,
-  MenuItem,
   TextField as TextFieldMUI,
   Typography,
   InputLabel,
+  FormControl,
+  MenuItem,
+  Input,
 } from '@material-ui/core';
-import { Diagnosis, Gender } from '../types';
-import Input from '@material-ui/core/Input';
+import { Diagnosis } from '../types';
+import { useState } from 'react';
 
-// structure of a single option
-export type GenderOption = {
-  value: Gender;
+export type EntryOption = {
+  value: string;
   label: string;
 };
 
-// props for select field component
 type SelectFieldProps = {
   name: string;
   label: string;
-  options: GenderOption[];
+  options: EntryOption[];
 };
 
 const FormikSelect = ({ field, ...props }: FieldProps) => (
@@ -39,7 +37,7 @@ export const SelectField = ({ name, label, options }: SelectFieldProps) => (
       name={name}
     >
       {options.map((option) => (
-        <MenuItem key={option.value} value={option.value}>
+        <MenuItem key={option.label} value={option.value}>
           {option.label || option.value}
         </MenuItem>
       ))}
@@ -65,43 +63,6 @@ export const TextField = ({ field, label, placeholder }: TextProps) => (
     </Typography>
   </div>
 );
-
-/*
-  for exercises 9.24.-
-*/
-interface NumberProps extends FieldProps {
-  label: string;
-  min: number;
-  max: number;
-}
-
-export const NumberField = ({ field, label, min, max }: NumberProps) => {
-  const [value, setValue] = useState<number>();
-
-  return (
-    <div style={{ marginBottom: '1em' }}>
-      <TextFieldMUI
-        fullWidth
-        label={label}
-        placeholder={String(min)}
-        type="number"
-        {...field}
-        value={value}
-        onChange={(e) => {
-          const value = parseInt(e.target.value);
-          if (value === undefined) return;
-          if (value > max) setValue(max);
-          else if (value <= min) setValue(min);
-          else setValue(Math.floor(value));
-        }}
-      />
-      <Typography variant="subtitle2" style={{ color: 'red' }}>
-        <ErrorMessage name={field.name} />
-      </Typography>
-    </div>
-  );
-};
-
 export const DiagnosisSelection = ({
   diagnoses,
   setFieldValue,
@@ -125,6 +86,7 @@ export const DiagnosisSelection = ({
     value: diagnosis.code,
   }));
 
+  console.log(diagnoses);
   return (
     <FormControl style={{ width: 552, marginBottom: '30px' }}>
       <InputLabel>Diagnoses</InputLabel>

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import {
   Box,
@@ -10,7 +10,6 @@ import {
   TableRow,
   TableBody,
 } from '@material-ui/core';
-
 import { PatientFormValues } from '../AddPatientModal/AddPatientForm';
 import AddPatientModal from '../AddPatientModal';
 import { Patient } from '../types';
@@ -22,8 +21,8 @@ import { Link } from 'react-router-dom';
 const PatientListPage = () => {
   const [{ patients }, dispatch] = useStateValue();
 
-  const [modalOpen, setModalOpen] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<string>();
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [error, setError] = useState<string>();
 
   const openModal = (): void => setModalOpen(true);
 

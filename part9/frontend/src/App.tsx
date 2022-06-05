@@ -19,6 +19,7 @@ const App = () => {
       latin: '',
     },
   ]);
+  console.log(diagnoses);
 
   React.useEffect(() => {
     void axios.get<void>(`${apiBaseUrl}/ping`);
